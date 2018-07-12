@@ -15,7 +15,7 @@ public class CameraAspectRatio : MonoBehaviour {
         //RectTransform test_page = pages[0].transform as RectTransform;
 
         Debug.Log(pages[0].transform);
-        Debug.Log(pages[0].transform.parent);
+        //Debug.Log(pages[0].transform.parent);
 
         //Bounds test_page_dim = pages[0].GetComponent<Bounds>();
 
