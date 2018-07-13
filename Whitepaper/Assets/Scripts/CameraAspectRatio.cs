@@ -12,24 +12,62 @@ public class CameraAspectRatio : MonoBehaviour {
         // rect.width = Screen.width
         GameObject[] pages = GameObject.FindGameObjectsWithTag("TestPage");
 
-        //RectTransform test_page = pages[0].transform as RectTransform;
+        Camera camera = GetComponent<Camera>();
 
-        Debug.Log(pages[0].transform);
-        //Debug.Log(pages[0].transform.parent);
+        RectTransform test_page = pages[0].GetComponent<RectTransform>();
+        Rect test_page_dim = test_page.rect;
 
-        //Bounds test_page_dim = pages[0].GetComponent<Bounds>();
+        // Rect temp = camera.rect;
 
-        //Debug.Log(test_page_dim);
+        // //temp.position = new Vector2(test_page_dim.x, test_page_dim.y);
+        // temp.x = test_page_dim.x;
+        // temp.y = test_page_dim.y;
 
-        float targetaspect = 16.0f / 9.0f;
+        // camera.rect = temp;
 
-        float windowaspect = (float) Screen.width / (float) Screen.height;
+        //camera.transform.position = pages[0].transform.position;
+        pages[0].transform.position = new Vector2(0, 0);
+        test_page.position = new Vector2(0, 0);
+
+
+        Debug.Log(test_page_dim.x + " " + test_page_dim.y + " " + test_page_dim.width + " " + test_page_dim.height);
 
         Debug.Log(Screen.width + " " + Screen.height);
 
-        float scaleheight = windowaspect / targetaspect;
+        Debug.Log(camera.rect.x + " " + camera.rect.y + " " + camera.rect.width + " " + camera.rect.height);
+
+        float page_ratio = test_page_dim.width / test_page_dim.height;
+
+        float window_ratio = (float) Screen.width / (float) Screen.height;
+
+        float scaleheight = window_ratio / page_ratio;
+
+        // Rect rect = camera.rect;
+        // rect.x = test_page_dim.x;
+        // rect.y = test_page_dim.y;
+        // rect.height = scaleheight;
+        // //rect.width = Screen.width;
+        // rect.width = 1.0f / page_ratio;
+        // camera.rect = rect;
+
+        // Debug.Log(camera.rect.x + " " + test_page_dim.x);
+
+        // I.E., the page's width is bigger than the screen's width
+        if (page_ratio > window_ratio) {
+            //
+        }
+        else {
+
+        }
+
+        // float targetaspect = 16.0f / 9.0f;
+
+        // float windowaspect = (float) Screen.width / (float) Screen.height;
+
+
+        // float scaleheight = windowaspect / targetaspect;
         
-        Camera camera = GetComponent<Camera>();
+        // Camera camera = GetComponent<Camera>();
 
         if (scaleheight < 1.0f)
         {
