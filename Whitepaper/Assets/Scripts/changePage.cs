@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class changePage : MonoBehaviour {
-	
+
 	private SpriteRenderer spriteRenderer;
 	public int pageNumber;
 	Vector2 touchOrigin;
@@ -13,14 +13,14 @@ public class changePage : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-    pageNumber = 1;
+    	pageNumber = 0;
 		loadPages();
 
 	}
 
 	void loadPages () {
-		for (int i=0; i<11; i++) {
-			sprites[i] = Resources.Load<Sprite>(""+i);
+		for (int i=0; i<28; i++) {
+			sprites[i] = Resources.Load<Sprite>(""+(i+1));
 		}
 	}
 
@@ -48,15 +48,15 @@ public class changePage : MonoBehaviour {
 										float x = touchEnd.x - touchOrigin.x;
 
 										if (x < 0) {
-											if(pageNumber < 28) {
+											if(pageNumber < 27) {
 												pageNumber++;
 												//spriteRenderer.sprite = sprites[pageNumber-1];
-												spriteRenderer.sprite = sprites[pageNumber-1];
+												spriteRenderer.sprite = sprites[pageNumber];
 											}
 										}else if (x > 0) {
-											if(pageNumber > 1) {
+											if(pageNumber > 0) {
 												pageNumber--;
-												spriteRenderer.sprite = sprites[pageNumber-1];
+												spriteRenderer.sprite = sprites[pageNumber];
 											}
 										}
 
