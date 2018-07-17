@@ -26,7 +26,7 @@ public class CameraAspectRatio : MonoBehaviour {
         Debug.Log(test_page.localScale);
         //x * test_page.height = Screen.height;
         Debug.Log(page_ratio / window_ratio);
-        test_page.localScale = new Vector3(1.0f, page_ratio/window_ratio, 1.0f);
+        test_page.localScale = new Vector3(page_ratio, page_ratio, 1.0f);
 	}
 	
 	// Update is called once per frame
