@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1267380520867420}
+  m_IsPrefabParent: 1
+--- !u!1 &1267380520867420
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224467103774703990}
+  - component: {fileID: 114003761535274732}
+  - component: {fileID: 60515819569531294}
+  m_Layer: 0
+  m_Name: pg25f3
+  m_TagString: TestPage
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!60 &60515819569531294
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267380520867420}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.6181884, y: 1.3350666}
+      - {x: 0.92564464, y: 2.407139}
+      - {x: 0.5586562, y: 3.4408581}
+      - {x: -0.12126732, y: 3.6678813}
+      - {x: -0.9385786, y: 3.4004598}
+      - {x: -1.1296446, y: 2.0226355}
+      - {x: -0.82978916, y: 0.9153538}
+      - {x: -1.8556985, y: 0.40919852}
+      - {x: -2.5997024, y: -0.015982628}
+      - {x: -3.0040586, y: -2.857956}
+      - {x: -2.7468925, y: -6.463237}
+      - {x: -2.5075762, y: -10.221567}
+      - {x: 2.215111, y: -10.244934}
+      - {x: 2.606356, y: -2.7399352}
+      - {x: 2.6253197, y: -0.086015224}
+      - {x: 1.1935911, y: 0.591974}
+--- !u!114 &114003761535274732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267380520867420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -146154839, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!224 &224467103774703990
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267380520867420}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.28, y: -3.15}
+  m_SizeDelta: {x: 13.26, y: 20.51}
+  m_Pivot: {x: 0.5, y: 0.5}
