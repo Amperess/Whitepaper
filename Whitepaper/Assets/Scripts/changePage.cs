@@ -25,6 +25,7 @@ public class changePage : MonoBehaviour {
 	}
 
 	// Update is called once per frame
+	/*
 	void Update () {
 		if (Input.touchCount > 0)
 						{
@@ -65,5 +66,24 @@ public class changePage : MonoBehaviour {
 
 								}
 						}
+	}
+	*/
+	void Update(){
+		if (Input.touchCount > 0) {
+			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
+			if(hit.collider != null && hit.collider.name != null){
+				if(hit.collider.name == "nextPagef"){
+					if(pageNumber < 27) {
+						pageNumber++;
+						spriteRenderer.sprite = sprites[pageNumber];
+					}
+				}else if(hit.collider.name == "prevPagef"){
+					if(pageNumber > 0) {
+						pageNumber--;
+						spriteRenderer.sprite = sprites[pageNumber];
+					}
+				}
+			}
+		}
 	}
 }
