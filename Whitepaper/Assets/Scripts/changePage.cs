@@ -9,6 +9,14 @@ public class changePage : MonoBehaviour {
 	Vector2 touchOrigin;
 	public Sprite[] sprites = new Sprite[28];
 
+	public bool clicked;
+	public float zoomInFOV;
+	public float orthoInFinal;
+	public float zoomOutFOV;
+	public float orthoOutFinal;
+	public float smooth;
+	public bool readyPage;
+
 
 	// Use this for initialization
 	void Start () {
@@ -16,6 +24,16 @@ public class changePage : MonoBehaviour {
     	pageNumber = 0;
 		loadPages();
 
+		clicked = false;
+		readyPage = false;
+
+		zoomOutFOV = 125;
+		orthoOutFinal = 20;
+
+		zoomInFOV = 2;
+		orthoInFinal = 1;
+
+		smooth = 10;
 	}
 
 	void loadPages () {
@@ -69,21 +87,93 @@ public class changePage : MonoBehaviour {
 	}
 	*/
 	void Update(){
-		if (Input.touchCount > 0) {
-			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
+		if (Input.touchCount > 0 || Input.GetMouseButtonDown(0)) {
+			clicked = true;
+		}
+
+		if (clicked) {
+			//RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
+			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 			if(hit.collider != null && hit.collider.name != null){
 				if(hit.collider.name == "nextPagef"){
 					if(pageNumber < 27) {
-						pageNumber++;
-						spriteRenderer.sprite = sprites[pageNumber];
+						Debug.Log(Camera.main.fieldOfView);
+						Debug.Log(Camera.main.orthographicSize);
+						Debug.Log(pageNumber);
+						if (!(Camera.main.orthographicSize > 20 && Camera.main.fieldOfView > 125)) {
+							ChangeFOV(0);
+						}
+						else {
+							pageNumber++;
+							spriteRenderer.sprite = sprites[pageNumber];
+							clicked = false;
+							readyPage = false;
+						}
 					}
 				}else if(hit.collider.name == "prevPagef"){
 					if(pageNumber > 0) {
-						pageNumber--;
-						spriteRenderer.sprite = sprites[pageNumber];
+						if (!((Camera.main.orthographicSize < 1 && Camera.main.fieldOfView < 2))) {
+							ChangeFOV(1);
+						}
+						else {
+							pageNumber--;
+							spriteRenderer.sprite = sprites[pageNumber];
+							clicked = false;
+							readyPage = false;
+						}
 					}
 				}
 			}
 		}
+	}
+
+	void ChangeFOV(int select) {
+		float currentFOV = Camera.main.fieldOfView;
+		float currentOrtho = Camera.main.orthographicSize;
+
+		if (select == 0) {
+	        if (currentFOV != zoomInFOV || currentOrtho != orthoInFinal) {
+				if (currentFOV > zoomInFOV) {
+					 Camera.main.fieldOfView -= (smooth * Time.deltaTime);
+				}
+				else {
+					if (currentFOV >= zoomInFOV) {
+						Camera.main.fieldOfView = zoomInFOV;
+					}
+	            }
+
+	            if (currentOrtho > orthoInFinal) {
+	            	Camera.main.orthographicSize -= (smooth * Time.deltaTime);
+	            }
+	            else {
+					if (currentOrtho >= orthoInFinal) {
+						Camera.main.orthographicSize = orthoInFinal;
+					}
+	            }
+	        }
+	    }
+
+        if (select == 1) {
+	        if (currentFOV != zoomOutFOV || currentOrtho != orthoOutFinal) {
+				if (currentFOV < zoomOutFOV) {
+					 Camera.main.fieldOfView += (smooth * Time.deltaTime);
+				}
+				else {
+					if (currentFOV <= zoomOutFOV) {
+						Camera.main.fieldOfView = zoomOutFOV;
+					}
+
+	            }
+
+	            if (currentOrtho < orthoOutFinal) {
+	            	Camera.main.orthographicSize += (smooth * Time.deltaTime);
+	            }
+	            else {
+					if (currentOrtho <= orthoOutFinal) {
+						Camera.main.orthographicSize = orthoOutFinal;
+					}
+	            }
+	        }
+	    }
 	}
 }
