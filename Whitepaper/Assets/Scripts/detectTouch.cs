@@ -14,7 +14,7 @@ public class detectTouch : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.touchCount > 0) {
-			if(popup_sr.sortingOrder == 1){
+			if(popup_sr.sortingOrder == 2){
 				popup_sr.sortingOrder = -1;
 				gray_sr.sortingOrder = -1;
 			}else{
@@ -24,8 +24,8 @@ public class detectTouch : MonoBehaviour {
 				if(hit.collider != null && hit.collider.name != null){
 					Debug.Log("I hit something!");
 					if(popup_sr.sortingOrder == -1){
-						popup_sr.sortingOrder = 1;
-						gray_sr.sortingOrder = 0;
+						popup_sr.sortingOrder = 2;
+						gray_sr.sortingOrder = 1;
 					}
 				}
 			}
