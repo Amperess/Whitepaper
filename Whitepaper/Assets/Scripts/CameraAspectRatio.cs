@@ -8,8 +8,6 @@ public class CameraAspectRatio : MonoBehaviour {
 	void Start () {
         GameObject[] pages = GameObject.FindGameObjectsWithTag("TestPage");
 
-        Camera camera = GetComponent<Camera>();
-
 		foreach (GameObject page in pages) {
 			RectTransform test_page = page.GetComponent<RectTransform>();
 	        Rect test_page_dim = test_page.rect;
