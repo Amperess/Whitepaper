@@ -1,6 +1,6 @@
 /**
  * - Each State that we create can represent a page in the comic, a menu,
- *   or any essentially any screen that the user interacts with.
+ *   or essentially any screen that the user interacts with.
  * - Each State has a function each with their own purpose
  */
 public interface IState{
