@@ -44,7 +44,6 @@ public class StateManager{
         this.curState.Dispose();
     }
 
-
     // Renders current state
     public void RenderState(){
         this.curState.Render();
