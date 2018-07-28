@@ -16,12 +16,4 @@ public class StateManager {
         curState.Init();
     }
 
-    public void UpdateState() {
-        curState.Update();
-    }
-
-    public void DestroyState() {
-        curState.Destroy();
-    }
-
 }
