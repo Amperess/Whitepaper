@@ -9,15 +9,13 @@ namespace Assets.Scripts.StateManagement.States
     class TestState : State {
 
         private Camera mainCamera;
-        private GameObject cube;
-
 
         public override void Init(){
             mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-            cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             cube.name = "Test Cube";
-            cube.GetComponent<Renderer>().material.color = Color.cyan;
+            cube.GetComponent<Renderer>().material.color = Color.black;
         }
 
         public override void Destroy() {
