@@ -9,13 +9,19 @@ public class changePage : MonoBehaviour {
 	Vector2 touchOrigin;
 	public Sprite[] sprites = new Sprite[28];
 
-	public bool clicked;
 	public float zoomInFOV;
 	public float orthoInFinal;
 	public float zoomOutFOV;
 	public float orthoOutFinal;
 	public float smooth;
-	public bool readyPage;
+
+	public float startOrtho;
+	public float startFOV;
+
+	public bool hitDetect;
+	public int isNext;
+	private float elapsed = 0.0f;
+	private float duration = 1.0f;
 
 
 	// Use this for initialization
@@ -24,8 +30,8 @@ public class changePage : MonoBehaviour {
     	pageNumber = 0;
 		loadPages();
 
-		clicked = false;
-		readyPage = false;
+		startOrtho = Camera.main.orthographicSize;
+		startFOV = Camera.main.fieldOfView;
 
 		zoomOutFOV = 125;
 		orthoOutFinal = 20;
@@ -34,6 +40,9 @@ public class changePage : MonoBehaviour {
 		orthoInFinal = 1;
 
 		smooth = 10;
+
+		hitDetect = false;
+		isNext = 0;
 	}
 
 	void loadPages () {
@@ -87,93 +96,161 @@ public class changePage : MonoBehaviour {
 	}
 	*/
 	void Update(){
-		if (Input.touchCount > 0 || Input.GetMouseButtonDown(0)) {
-			clicked = true;
+		if (hitDetect) { // Perform one iteration of lerp
+			if (isNext == 1) { // if nextPagef (zoom in)
+				elapsed += Time.deltaTime / duration;
+				Camera.main.orthographicSize = Mathf.SmoothStep(startOrtho, orthoInFinal, elapsed);
+				Camera.main.fieldOfView = Mathf.SmoothStep(startFOV, zoomInFOV, elapsed);
+				if (elapsed > 1.0f) {
+					isNext = 3;
+					spriteRenderer.sprite = sprites[pageNumber];
+					elapsed = 0.0f;
+				}
+			}
+			else if (isNext == 2) { // if prevPagef (zoom out)
+				elapsed += Time.deltaTime / duration;
+				Camera.main.orthographicSize = Mathf.SmoothStep(startOrtho, orthoOutFinal, elapsed);
+				Camera.main.fieldOfView = Mathf.SmoothStep(startFOV, zoomOutFOV, elapsed);
+				if (elapsed > 1.0f) {
+					isNext = 4;
+					spriteRenderer.sprite = sprites[pageNumber];
+					elapsed = 0.0f;
+				}
+			}
+			// REVERSE
+			else if (isNext == 3) {
+				elapsed += Time.deltaTime / duration;
+				Camera.main.orthographicSize = Mathf.SmoothStep(orthoInFinal, startOrtho, elapsed);
+				Camera.main.fieldOfView = Mathf.SmoothStep(zoomInFOV, startFOV, elapsed);
+				if (elapsed > 1.0f) {
+					hitDetect = false;
+					isNext = 0;
+				}
+			}
+			else if (isNext == 4) {
+				elapsed += Time.deltaTime / duration;
+				Camera.main.orthographicSize = Mathf.SmoothStep(orthoOutFinal, startOrtho, elapsed);
+				Camera.main.fieldOfView = Mathf.SmoothStep(zoomOutFOV, startFOV, elapsed);
+				if (elapsed > 1.0f) {
+					hitDetect = false;
+					isNext = 0;
+				}
+			}
 		}
-
-		if (clicked) {
-			//RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
-			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+		else { // Check if the hit detected
+			RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
+			//RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetMouseButtonDown(0).position), Vector2.zero);
 			if(hit.collider != null && hit.collider.name != null){
-				if(hit.collider.name == "nextPagef"){
-					if(pageNumber < 27) {
-						Debug.Log(Camera.main.fieldOfView);
-						Debug.Log(Camera.main.orthographicSize);
-						Debug.Log(pageNumber);
-						if (!(Camera.main.orthographicSize > 20 && Camera.main.fieldOfView > 125)) {
-							ChangeFOV(0);
-						}
-						else {
-							pageNumber++;
-							spriteRenderer.sprite = sprites[pageNumber];
-							clicked = false;
-							readyPage = false;
-						}
+				hitDetect = true;
+				elapsed = 0.0f;
+				if (hit.collider.name == "nextPagef") {
+					if (pageNumber < 27) {
+						pageNumber++;
+						isNext = 1;
 					}
-				}else if(hit.collider.name == "prevPagef"){
-					if(pageNumber > 0) {
-						if (!((Camera.main.orthographicSize < 1 && Camera.main.fieldOfView < 2))) {
-							ChangeFOV(1);
-						}
-						else {
-							pageNumber--;
-							spriteRenderer.sprite = sprites[pageNumber];
-							clicked = false;
-							readyPage = false;
-						}
+				}
+				else if (hit.collider.name == "prevPagef") {
+					if (pageNumber > 0) {
+						pageNumber--;
+						isNext = 2;
 					}
 				}
 			}
 		}
 	}
 
-	void ChangeFOV(int select) {
-		float currentFOV = Camera.main.fieldOfView;
-		float currentOrtho = Camera.main.orthographicSize;
 
-		if (select == 0) {
-	        if (currentFOV != zoomInFOV || currentOrtho != orthoInFinal) {
-				if (currentFOV > zoomInFOV) {
-					 Camera.main.fieldOfView -= (smooth * Time.deltaTime);
-				}
-				else {
-					if (currentFOV >= zoomInFOV) {
-						Camera.main.fieldOfView = zoomInFOV;
-					}
-	            }
 
-	            if (currentOrtho > orthoInFinal) {
-	            	Camera.main.orthographicSize -= (smooth * Time.deltaTime);
-	            }
-	            else {
-					if (currentOrtho >= orthoInFinal) {
-						Camera.main.orthographicSize = orthoInFinal;
-					}
-	            }
-	        }
-	    }
+	// IEnumerator change_fov(int select) {
+	// 	Debug.Log(select);
+	// 	float currentFOV = Camera.main.fieldOfView;
+	// 	float currentOrtho = Camera.main.orthographicSize;
 
-        if (select == 1) {
-	        if (currentFOV != zoomOutFOV || currentOrtho != orthoOutFinal) {
-				if (currentFOV < zoomOutFOV) {
-					 Camera.main.fieldOfView += (smooth * Time.deltaTime);
-				}
-				else {
-					if (currentFOV <= zoomOutFOV) {
-						Camera.main.fieldOfView = zoomOutFOV;
-					}
+	// 	if (select == 0) { //Zoom in
+	// 		while (true) {
+	// 			Debug.Log(currentFOV);
+	// 			Debug.Log(currentOrtho);
+	// 			Debug.Log(zoomInFOV);
+	// 			Debug.Log(orthoInFinal);
+	// 			if (currentFOV <= zoomInFOV && currentOrtho <=orthoInFinal) {
+	// 				Debug.Log("will break");
+	// 				break;
+	// 			}
+	// 			if (currentFOV > zoomInFOV) {
+	// 				Camera.main.fieldOfView -= (smooth * Time.deltaTime);
+	// 			}
+	// 			if (currentOrtho > orthoInFinal) {
+	// 				Camera.main.orthographicSize -= (smooth * Time.deltaTime);
+	// 			}
+	// 			yield return new WaitForSeconds(.2f);
+	// 		}
+	// 	}
 
-	            }
+	// 	if (select == 1) { //Zoom out
+	// 		while (true) {
+	// 			if (currentFOV >= zoomOutFOV && currentOrtho >=orthoOutFinal) {
+	// 				Debug.Log("will break 2");
+	// 				break;
+	// 			}
+	// 			if (currentFOV < zoomOutFOV) {
+	// 				Camera.main.fieldOfView += (smooth * Time.deltaTime);
+	// 			}
+	// 			if (currentOrtho < orthoOutFinal) {
+	// 				Camera.main.orthographicSize += (smooth * Time.deltaTime);
+	// 			}
+	// 			yield return new WaitForSeconds(.2f);
+	// 		}
+	// 	}
+	// }
 
-	            if (currentOrtho < orthoOutFinal) {
-	            	Camera.main.orthographicSize += (smooth * Time.deltaTime);
-	            }
-	            else {
-					if (currentOrtho <= orthoOutFinal) {
-						Camera.main.orthographicSize = orthoOutFinal;
-					}
-	            }
-	        }
-	    }
-	}
+	// void ChangeFOV(int select) {
+	// 	float currentFOV = Camera.main.fieldOfView;
+	// 	float currentOrtho = Camera.main.orthographicSize;
+
+	// 	if (select == 0) {
+	//         if (currentFOV != zoomInFOV || currentOrtho != orthoInFinal) {
+	// 			if (currentFOV > zoomInFOV) {
+	// 				 Camera.main.fieldOfView -= (smooth * Time.deltaTime);
+	// 			}
+	// 			else {
+	// 				if (currentFOV >= zoomInFOV) {
+	// 					Camera.main.fieldOfView = zoomInFOV;
+	// 				}
+	//             }
+
+	//             if (currentOrtho > orthoInFinal) {
+	//             	Camera.main.orthographicSize -= (smooth * Time.deltaTime);
+	//             }
+	//             else {
+	// 				if (currentOrtho >= orthoInFinal) {
+	// 					Camera.main.orthographicSize = orthoInFinal;
+	// 				}
+	//             }
+	//         }
+	//     }
+
+ //        if (select == 1) {
+	//         if (currentFOV != zoomOutFOV || currentOrtho != orthoOutFinal) {
+	// 			if (currentFOV < zoomOutFOV) {
+	// 				 Camera.main.fieldOfView += (smooth * Time.deltaTime);
+	// 			}
+	// 			else {
+	// 				if (currentFOV <= zoomOutFOV) {
+	// 					Camera.main.fieldOfView = zoomOutFOV;
+	// 				}
+
+	//             }
+
+	//             if (currentOrtho < orthoOutFinal) {
+	//             	Camera.main.orthographicSize += (smooth * Time.deltaTime);
+	//             }
+	//             else {
+	// 				if (currentOrtho <= orthoOutFinal) {
+	// 					Camera.main.orthographicSize = orthoOutFinal;
+	// 				}
+	//             }
+	//         }
+	//     }
+	// }
 }
+
