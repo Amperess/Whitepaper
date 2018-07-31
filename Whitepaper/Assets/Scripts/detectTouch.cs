@@ -7,7 +7,7 @@ public class detectTouch : MonoBehaviour {
 	public SpriteRenderer gray_sr;
 	// Use this for initialization
 	void Start () {
-		popup_sr = GameObject.Find("popup").GetComponent<SpriteRenderer>();
+		popup_sr = GameObject.Find("popupStacks").GetComponent<SpriteRenderer>();
 		gray_sr = GameObject.Find("gray").GetComponent<SpriteRenderer>();
 	}
 

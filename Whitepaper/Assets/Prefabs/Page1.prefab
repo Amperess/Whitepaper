@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114233632429401224}
   - component: {fileID: 114781629664324896}
   m_Layer: 0
-  m_Name: Page1
+  m_Name: Page
   m_TagString: TestPage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
