@@ -13,22 +13,26 @@ public class detectTouch : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.touchCount > 0) {
-			if(popup_sr.sortingOrder == 2){
-				popup_sr.sortingOrder = -1;
-				gray_sr.sortingOrder = -1;
-			}else{
-				Debug.Log(Input.touchCount);
-				Debug.Log("Touching " + Input.touches[0].position);
-				RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
-				if(hit.collider != null && hit.collider.name != null){
-					Debug.Log("I hit something!");
-					if(popup_sr.sortingOrder == -1){
-						popup_sr.sortingOrder = 2;
-						gray_sr.sortingOrder = 1;
-					}
-				}
-			}
-		}
+		if(Input.touchCount == 1)
+		 {
+		     if(Input.GetTouch(0).phase == TouchPhase.Began)
+		     {
+				 if(popup_sr.sortingOrder == 2){
+	 				popup_sr.sortingOrder = -1;
+	 				gray_sr.sortingOrder = -1;
+	 			}else{
+	 				Debug.Log(Input.touchCount);
+	 				Debug.Log("Touching " + Input.touches[0].position);
+	 				RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
+	 				if(hit.collider != null && hit.collider.name != null){
+	 					Debug.Log("I hit something!");
+	 					if(popup_sr.sortingOrder == -1){
+	 						popup_sr.sortingOrder = 2;
+	 						gray_sr.sortingOrder = 1;
+	 					}
+	 				}
+	 			}
+		     }
+		 }
 	}
 }
