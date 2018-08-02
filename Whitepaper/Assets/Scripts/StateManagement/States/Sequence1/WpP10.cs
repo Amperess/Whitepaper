@@ -9,5 +9,15 @@ namespace Application
         public WpP10()
         {
         }
+
+        public override void Destroy()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Init()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
