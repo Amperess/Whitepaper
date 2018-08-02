@@ -1,19 +1,26 @@
 using System;
 
-public class StateManager {
+public class StateManager
+{
 
+    private State prevState;
     private State curState;
+    private State nextState;
 
-    public StateManager() {
-        curState = null;
+    public StateManager()
+    {
+        this.prevState = null;
+        this.curState = null;
+        this.nextState = null;
     }
 
-    public void LoadState(State newState) {
-        if (curState != null)
-            newState.Destroy();
+    public void PrevState(State prevState) {   
+        this.prevState
+    }
 
-        curState = newState;
-        curState.Init();
+    public void NextState(State nextState){
+
+
     }
 
 }
