@@ -18,6 +18,7 @@ public class StateManager
 
     // Keeps track of the current state being rendered to the screen
     private static State currentState;
+    private static string currentStateId;
 
     // A look up table that is used to route states to their next proper page
     private static Hashtable stateTable;
@@ -25,6 +26,7 @@ public class StateManager
     
     private StateManager(){
         stateManager = null;
+        currentStateId = null;
         hasStarted = false;
         stateTable = new Hashtable();
     }
@@ -47,7 +49,9 @@ public class StateManager
      * Eventually write tool that will handle this for us at Runtime
      */
     private static void PopulateStateGraph(){
-        stateTable["TestState"] = new StateMapping(null, new TestState(), null);
+        stateTable["TestState"] = new StateMapping(null, "Assets.Scripts.StateManagement.States.TestState", null);
+
+        //stateTable["WpP4"] = new StateMapping(null, new )
     }
 
     /*
@@ -57,16 +61,18 @@ public class StateManager
     public static void Start(string stateId){
         try{
             // Look up stateId in stateTable and assign it to be the starting state
-            currentState = ((StateMapping) (stateTable[stateId])).Cur;
+            StateMapping stateMap = (StateMapping) (stateTable[stateId]);
+
+            // Set the starting state to the current state from statemap
+            currentState = ReflectState(stateMap.Cur);
+
+            currentStateId = stateId;
 
             // Once found, initialize the scene to load in the first set of assets
             currentState.Init();
         }
         catch(Exception e){
-            // If an error occurs, throw it in the logs
-            Debug.Log("Error: Statemanager - LoadState()");
             Debug.Log("Failed to Load:" + stateId);
-            Debug.Log(e.StackTrace);
         }
     }
 
@@ -76,9 +82,17 @@ public class StateManager
      * 
      * - Purpose: Load next page
      */
-    public static State LoadNextState(string nextStateId){
-        StateMapping stateMapping = (StateMapping)stateTable[nextStateId];
-        return stateMapping.Next;
+    public static void LoadNextState(){
+        // get state id of next state
+        StateMapping stateMap = (StateMapping)(stateTable[currentStateId]);
+        string nextStateId = stateMap.Next;
+
+        // destroy current state
+        currentState.Destroy();
+
+        // Set currentState to the instance of the next state and initialize all game objects
+        currentState = ReflectState(nextStateId);
+        currentState.Init();
     }
 
     /*
@@ -87,9 +101,23 @@ public class StateManager
      * 
      * - Purpose: Loads previous page
      */
-    public static State LoadPreviousState(string prevStateId)
-    {
-        StateMapping stateMapping = (StateMapping)stateTable[prevStateId];
-        return stateMapping.Prev;
+    public static void LoadPreviousState(){
+        // get state id of prev state
+        StateMapping stateMap = (StateMapping)(stateTable[currentStateId]);
+        string prevStateId = stateMap.Prev;
+
+        // destroy current state
+        currentState.Destroy();
+
+        // Set currentState to the instance of the next state and initialize all game objects
+        currentState = ReflectState(prevStateId);
+        currentState.Init();
+    }
+
+    private static State ReflectState(string stateId){
+        Type type = Type.GetType(stateId);
+        State reflectedState = (State)Activator.CreateInstance(type);
+
+        return reflectedState;
     }
 }

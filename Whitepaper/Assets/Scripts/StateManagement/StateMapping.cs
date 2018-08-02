@@ -3,25 +3,25 @@ namespace Application
 {
     public class StateMapping{
         
-        private State prev;
-        private State next;
-        private State cur;
+        private string prev;
+        private string next;
+        private string cur;
 
-        public StateMapping(State prev, State cur, State next){
+        public StateMapping(string prev, string cur, string next){
             this.prev = prev;
             this.next = next;
             this.cur = cur;
         }
 
-        public State Prev{
+        public string Prev{
             get { return prev; }
         }
 
-        public State Next{
+        public string Next{
             get { return next; }
         }
 
-        public State Cur{
+        public string Cur{
             get { return cur; }
         }
 
