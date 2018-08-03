@@ -17,7 +17,7 @@ public class detectTouch : MonoBehaviour {
 		 {
 		     if(Input.GetTouch(0).phase == TouchPhase.Began)
 		     {
-				 if(popup_sr.sortingOrder == 2){
+				 if(popup_sr.sortingOrder == 4){
 	 				popup_sr.sortingOrder = -1;
 	 				gray_sr.sortingOrder = -1;
 	 			}else{
@@ -26,9 +26,79 @@ public class detectTouch : MonoBehaviour {
 	 				RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
 	 				if(hit.collider != null && hit.collider.name != null){
 	 					Debug.Log("I hit something!");
-	 					if(popup_sr.sortingOrder == -1){
-	 						popup_sr.sortingOrder = 2;
-	 						gray_sr.sortingOrder = 1;
+	 					if (hit.collider.name === "nextPagef") {
+	 						// zoom in and out to the next page, or back to page 19 if at the end 
+	 						if () { // page number is currently from 4 to 10 inclusive
+								if () { // page number is 10
+	 								// go to page 19
+	 							}
+	 							else {
+	 								// go back to currentPage+1
+	 							}
+	 						}
+	 						else if () { // page number is currently from 1 to 2 inclusive
+								if () { // page number is 2
+	 								// go back to page 19
+	 							}
+	 							else {
+	 								// go back to currentPage+1
+	 							}
+	 						}
+	 						else if () { // page number is currently from 11 to 15 inclusive
+								if () { // page number is 15
+	 								// go back to page 19
+	 							}
+	 							else {
+	 								// go back to currentPage+1
+	 							}
+	 						}
+	 					}
+	 					else if (hit.collider.name === "prevPagef") {
+	 						// zoom out to the next page, or back to page 19 if at the beginning
+	 						if () { // page number is currently from 4 to 10 inclusive
+	 							if () { // page number is 4
+	 								// go back to page 19
+	 							}
+	 							else {
+	 								// go back to currentPage-1
+	 							}
+	 						}
+	 						else if () { // page number is currently from 1 to 2 inclusive
+								if () { // page number is 1
+	 								// go back to page 19
+	 							}
+	 							else {
+	 								// go back to currentPage-1
+	 							}
+	 						}
+	 						else if () { // page number is currently from 11 to 15 inclusive
+								if () { // page number is 11
+	 								// go back to page 19
+	 							}
+	 							else {
+	 								// go back to currentPage-1
+	 							}
+	 						}
+	 					}
+	 					else {
+	 						if (hit.collider.name === "19.1") {
+	 							// zoom in and out to page sequence 1
+	 							// Change to page 4
+	 						}
+	 						else if (hit.collider.name === "19.2") {
+	 							// zoom in and out to page sequence 2
+	 							// Change to page 1
+	 						}
+	 						else if (hit.collider.name === "19.3") {
+	 							// zoom in and out to page sequence 3
+	 							// Change to page 11
+	 						}
+	 						else if (hit.collider.name === "19.4") {
+	 							if(popup_sr.sortingOrder == -1){
+			 						popup_sr.sortingOrder = 4;
+			 						gray_sr.sortingOrder = 3;
+			 					}
+	 						}
 	 					}
 	 				}
 	 			}
