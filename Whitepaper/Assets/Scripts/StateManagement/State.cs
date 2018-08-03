@@ -1,11 +1,15 @@
 using System;
 using UnityEngine;
 
-public abstract class State{
+public class State{
     
     public State(){}
 
-    public abstract void Init();
-    public abstract void Destroy();
+    public virtual void Init(){
+        
+    }
+    public virtual void Destroy(){
+        
+    }
 
 }

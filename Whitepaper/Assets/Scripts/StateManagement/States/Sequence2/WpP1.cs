@@ -7,11 +7,11 @@ namespace Application
         }
 
         public override void Destroy() {
-            throw new NotImplementedException();
+            
         }
 
         public override void Init() {
-            throw new NotImplementedException();
+            
         }
     }
 }
