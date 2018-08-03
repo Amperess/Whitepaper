@@ -8,22 +8,22 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 0}
+  m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1782989235491178}
-  m_IsPrefabParent: 1
+  m_IsPrefabAsset: 1
 --- !u!1 &1782989235491178
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
+  serializedVersion: 6
   m_Component:
   - component: {fileID: 224151012781761368}
   - component: {fileID: 212850769971864062}
   - component: {fileID: 114233632429401224}
   - component: {fileID: 114781629664324896}
   m_Layer: 0
-  m_Name: Page
+  m_Name: Page1
   m_TagString: TestPage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ GameObject:
 --- !u!114 &114233632429401224
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782989235491178}
   m_Enabled: 1
@@ -70,17 +70,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  clicked: 0
   zoomInFOV: 0
   orthoInFinal: 0
   zoomOutFOV: 0
   orthoOutFinal: 0
   smooth: 0
-  readyPage: 0
+  startOrtho: 0
+  startFOV: 0
+  hitDetect: 0
+  isNext: 0
 --- !u!114 &114781629664324896
 MonoBehaviour:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782989235491178}
   m_Enabled: 1
@@ -93,7 +95,7 @@ MonoBehaviour:
 --- !u!212 &212850769971864062
 SpriteRenderer:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782989235491178}
   m_Enabled: 1
@@ -135,10 +137,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!224 &224151012781761368
 RectTransform:
   m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1782989235491178}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
