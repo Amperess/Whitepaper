@@ -23,10 +23,15 @@ public class changePage : MonoBehaviour {
 	private float elapsed = 0.0f;
 	private float duration = 1.0f;
 
+	public SpriteRenderer dark_filter;
+
 
 	// Use this for initialization
 	void Start () {
 		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+		dark_filter = GameObject.Find("dark_filter").GetComponent<SpriteRenderer>();
+
     	pageNumber = 0;
 		loadPages();
 
@@ -96,6 +101,12 @@ public class changePage : MonoBehaviour {
 	}
 	*/
 	void Update(){
+		if (pageNumber == 24 || pageNumber == 25) {
+			dark_filter.sortingOrder = 2;
+		}
+		else {
+			dark_filter.sortingOrder = -1;
+		}
 		if (hitDetect) { // Perform one iteration of lerp
 			if (isNext == 1) { // if nextPagef (zoom in)
 				elapsed += Time.deltaTime / duration;
@@ -143,6 +154,7 @@ public class changePage : MonoBehaviour {
 			if(hit.collider != null && hit.collider.name != null){
 				hitDetect = true;
 				elapsed = 0.0f;
+				Debug.Log(pageNumber);
 				if (hit.collider.name == "nextPagef") {
 					if (pageNumber < 27) {
 						pageNumber++;
@@ -158,99 +170,5 @@ public class changePage : MonoBehaviour {
 			}
 		}
 	}
-
-
-
-	// IEnumerator change_fov(int select) {
-	// 	Debug.Log(select);
-	// 	float currentFOV = Camera.main.fieldOfView;
-	// 	float currentOrtho = Camera.main.orthographicSize;
-
-	// 	if (select == 0) { //Zoom in
-	// 		while (true) {
-	// 			Debug.Log(currentFOV);
-	// 			Debug.Log(currentOrtho);
-	// 			Debug.Log(zoomInFOV);
-	// 			Debug.Log(orthoInFinal);
-	// 			if (currentFOV <= zoomInFOV && currentOrtho <=orthoInFinal) {
-	// 				Debug.Log("will break");
-	// 				break;
-	// 			}
-	// 			if (currentFOV > zoomInFOV) {
-	// 				Camera.main.fieldOfView -= (smooth * Time.deltaTime);
-	// 			}
-	// 			if (currentOrtho > orthoInFinal) {
-	// 				Camera.main.orthographicSize -= (smooth * Time.deltaTime);
-	// 			}
-	// 			yield return new WaitForSeconds(.2f);
-	// 		}
-	// 	}
-
-	// 	if (select == 1) { //Zoom out
-	// 		while (true) {
-	// 			if (currentFOV >= zoomOutFOV && currentOrtho >=orthoOutFinal) {
-	// 				Debug.Log("will break 2");
-	// 				break;
-	// 			}
-	// 			if (currentFOV < zoomOutFOV) {
-	// 				Camera.main.fieldOfView += (smooth * Time.deltaTime);
-	// 			}
-	// 			if (currentOrtho < orthoOutFinal) {
-	// 				Camera.main.orthographicSize += (smooth * Time.deltaTime);
-	// 			}
-	// 			yield return new WaitForSeconds(.2f);
-	// 		}
-	// 	}
-	// }
-
-	// void ChangeFOV(int select) {
-	// 	float currentFOV = Camera.main.fieldOfView;
-	// 	float currentOrtho = Camera.main.orthographicSize;
-
-	// 	if (select == 0) {
-	//         if (currentFOV != zoomInFOV || currentOrtho != orthoInFinal) {
-	// 			if (currentFOV > zoomInFOV) {
-	// 				 Camera.main.fieldOfView -= (smooth * Time.deltaTime);
-	// 			}
-	// 			else {
-	// 				if (currentFOV >= zoomInFOV) {
-	// 					Camera.main.fieldOfView = zoomInFOV;
-	// 				}
-	//             }
-
-	//             if (currentOrtho > orthoInFinal) {
-	//             	Camera.main.orthographicSize -= (smooth * Time.deltaTime);
-	//             }
-	//             else {
-	// 				if (currentOrtho >= orthoInFinal) {
-	// 					Camera.main.orthographicSize = orthoInFinal;
-	// 				}
-	//             }
-	//         }
-	//     }
-
- //        if (select == 1) {
-	//         if (currentFOV != zoomOutFOV || currentOrtho != orthoOutFinal) {
-	// 			if (currentFOV < zoomOutFOV) {
-	// 				 Camera.main.fieldOfView += (smooth * Time.deltaTime);
-	// 			}
-	// 			else {
-	// 				if (currentFOV <= zoomOutFOV) {
-	// 					Camera.main.fieldOfView = zoomOutFOV;
-	// 				}
-
-	//             }
-
-	//             if (currentOrtho < orthoOutFinal) {
-	//             	Camera.main.orthographicSize += (smooth * Time.deltaTime);
-	//             }
-	//             else {
-	// 				if (currentOrtho <= orthoOutFinal) {
-	// 					Camera.main.orthographicSize = orthoOutFinal;
-	// 				}
-	//             }
-	//         }
-	//     }
-	// }
 }
 

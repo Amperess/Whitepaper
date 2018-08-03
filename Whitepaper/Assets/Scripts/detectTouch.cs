@@ -24,8 +24,9 @@ public class detectTouch : MonoBehaviour {
 	 				Debug.Log(Input.touchCount);
 	 				Debug.Log("Touching " + Input.touches[0].position);
 	 				RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.touches[0].position), Vector2.zero);
-	 				if(hit.collider != null && hit.collider.name != null){
+	 				if(hit.collider != null && hit.collider.name != null && hit.collider.name == "dark_filter"){
 	 					Debug.Log("I hit something!");
+                        Debug.Log(hit.collider.name);
 	 					if(popup_sr.sortingOrder == -1){
 	 						popup_sr.sortingOrder = 2;
 	 						gray_sr.sortingOrder = 1;
