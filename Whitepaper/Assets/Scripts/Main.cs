@@ -11,7 +11,7 @@ class Main {
         StateManager.Create();
 
         //Loads in the very first state
-        StateManager.Start("TestState");
+        StateManager.Start("Intro2");
 
     }
 

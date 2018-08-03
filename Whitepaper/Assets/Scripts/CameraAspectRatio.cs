@@ -22,9 +22,9 @@ public class CameraAspectRatio : MonoBehaviour {
 	        Camera.main.orthographicSize = (test_page_dim.height / 2.0f) * page_ratio;
 	        Camera.main.aspect = window_ratio;
 
-	        Debug.Log(test_page.localScale);
+	        //Debug.Log(test_page.localScale);
 	        //x * test_page.height = Screen.height;
-	        Debug.Log(page_ratio / window_ratio);
+	        //Debug.Log(page_ratio / window_ratio);
 	        test_page.localScale = new Vector3(page_ratio, page_ratio, 1.0f);
 		}
 
