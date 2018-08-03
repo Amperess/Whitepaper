@@ -11,11 +11,11 @@ namespace Assets.Scripts.StateManagement.States
         private Camera mainCamera;
 
         public override void Init(){
-            mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+            // mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.name = "Test Cube";
-            cube.GetComponent<Renderer>().material.color = Color.black;
+            // GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            // cube.name = "Test Cube";
+            // cube.GetComponent<Renderer>().material.color = Color.black;
         }
 
         public override void Destroy() {
