@@ -17,7 +17,7 @@ public class detectTouch : MonoBehaviour {
 		 {
 		     if(Input.GetTouch(0).phase == TouchPhase.Began)
 		     {
-				 if(popup_sr.sortingOrder == 2){
+				 if(popup_sr.sortingOrder == 4){
 	 				popup_sr.sortingOrder = -1;
 	 				gray_sr.sortingOrder = -1;
 	 			}else{
@@ -95,8 +95,8 @@ public class detectTouch : MonoBehaviour {
 	 						}
 	 						else if (hit.collider.name === "19.4") {
 	 							if(popup_sr.sortingOrder == -1){
-			 						popup_sr.sortingOrder = 2;
-			 						gray_sr.sortingOrder = 1;
+			 						popup_sr.sortingOrder = 4;
+			 						gray_sr.sortingOrder = 3;
 			 					}
 	 						}
 	 					}
