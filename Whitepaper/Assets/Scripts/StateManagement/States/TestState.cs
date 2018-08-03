@@ -13,12 +13,7 @@ namespace Assets.Scripts.StateManagement.States
         public TestState(){}
 
         public override void Init(){
-            Debug.Log("Made it here ");
-            mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.name = "Test Cube";
-            cube.GetComponent<Renderer>().material.color = Color.black;
+            GameObject gameObject = MonoBehaviour.Instantiate(Resources.Load("intro1")) as GameObject;
         }
 
         public override void Destroy() {
